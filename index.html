@@ -1,0 +1,111 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>xServer-2 routing demo</title>
+    <meta name='apple-mobile-web-app-capable' content='yes' />
+    <meta name='mobile-web-app-capable' content='yes'>
+    <meta rel="stylesheet" name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no' />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.fullscreen@1.4.3/Control.FullScreen.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@3.2.8/dist/leaflet-routing-machine.css" />
+    <link rel="stylesheet" href="https://unpkg.com/sidebar-v2@0.4.0/css/leaflet-sidebar.min.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-contextmenu@1.4.0/dist/leaflet.contextmenu.min.css">
+    <link rel="stylesheet" href="./index.css" />
+    <link rel="icon" type="image/x-icon" href="./favicon.ico">
+    <style>
+        body {
+            padding: 0;
+            margin: 0;
+        }
+
+        html,
+        body,
+        #map-container,
+        #map {
+            height: 100%;
+        }
+
+
+        div.leaflet-routing-geocoders input {
+            width: calc(100% - 6px); /* fixes wrong line-break in chrome */
+        }
+        
+        td,
+        th {
+            padding: 0;
+            text-align: left;
+        }
+
+        div.controlPanel {
+            font: 14px Arial,sans-serif;          
+            padding: 10px;
+            background: rgb(255,255,255);               
+            max-height: 50em;
+            overflow-y: auto;
+            display: inline-block;
+            color: rgb(75, 74, 77); /* PTV solid silver I */
+            text-decoration: none;
+            box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.65);
+            border-radius: 5px; 
+        }   
+    </style>
+</head>
+
+<body>
+    <div id="map-container">    
+    <div id="sidebar" class="sidebar collapsed">
+        <!-- Nav tabs -->
+        <ul class="sidebar-tabs" role="tablist">
+            <li><a href="#home" role="tab"><i class="fa fa-flag"></i></a>
+            </li>
+        </ul>
+        <!-- Tab panes -->
+        <div class="sidebar-content active">
+            <div class="sidebar-pane leaflet-control" id="home">
+                <h4>
+                    xServer-2 routing demo
+                </h4>
+                <p style="font-size:13px">
+                    Drag and drop the blue waypoint markers, or grab the orange route line and drag a new via waypoint. You can also enter an
+                    address in the address text fields on the right side.
+                </p>
+                <div id="scenario-control" class="controlPanel" style="width:204px">
+                    <table>
+                        <th colspan="2" style="height:30px;width:190px"><span style="font-size:16px; font-weight:bold">Sample Route</span>
+                        </th>
+                        <tr>
+                            <td>
+                                <select id="scenarioSelect" class="form-control" onchange="updateScenario()" width="200px">
+                                    <option value="m">Munich</option>
+                                    <option value="hh">Hamburg</option>
+                                    <option value="eu">Europe</option>
+                                    <option value="na">USA</option>
+                                    <option value="au">Australia</option>
+                                </select>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="map" class="sidebar-map"></div>
+
+    <script src="https://unpkg.com/jquery@3.2.1/dist/jquery.min.js"></script>
+    <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet.fullscreen@1.4.3/Control.FullScreen.js"></script>
+    <script src="https://unpkg.com/leaflet-routing-machine@3.2.12/dist/leaflet-routing-machine.min.js"></script>
+    <script src="https://unpkg.com/sidebar-v2@0.4.0/js/leaflet-sidebar.min.js"></script>
+    <script src="https://unpkg.com/leaflet-contextmenu@1.4.0/dist/leaflet.contextmenu.min.js"></script>
+    <script src="https://unpkg.com/leaflet.icon.glyph@0.2.0/Leaflet.Icon.Glyph.js"></script>
+    
+    <script src="./Control.Geocoder-ptv.js"></script>
+    <script src="./routing-machine-ptv.js"></script>
+    <script src="./apikey.js"></script>
+    <script src="./index.js"></script>
+</body>
+
+</html>

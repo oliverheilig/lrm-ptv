@@ -1,4 +1,4 @@
 # lrm-ptv
 Leaflet Routing Machine for PTV Developer
 
-[Live Demo](oliverheilig.github.io/lrm-ptv/)
+[Live Demo](https://oliverheilig.github.io/lrm-ptv/)

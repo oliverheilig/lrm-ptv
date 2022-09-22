@@ -7,7 +7,10 @@ L.Routing.Ptv = L.Class.extend({
 		beforeSend: null,
 
 		// api key
-		apiKey: ''
+		apiKey: '',
+
+		// routing profile
+		profile: 'EUR_CAR'
 	},
 
 	initialize: function (options) {
@@ -37,10 +40,6 @@ L.Routing.Ptv = L.Class.extend({
 		var url = this.options.serviceUrl;
 
 		var request = this._buildRouteRequest(waypoints, options);
-
-		var geometryOnly = options && options.geometryOnly;
-
-		var numAlts = geometryOnly ? 0 : this.options.numberOfAlternatives;
 
 		this.runRequest(url, request, this.options.apiKey,
 			L.bind(function (response) {
@@ -89,7 +88,7 @@ L.Routing.Ptv = L.Class.extend({
 	},
 
 	_buildRouteRequest: function (waypoints, options) {
-		var request = 'routing/v1/routes?results=POLYLINE&profile=EUR_CAR';
+		var request = 'routing/v1/routes?results=POLYLINE&profile=' + this.options.profile;
 
 		var wpCoords = [];
 		for (i = 0; i < waypoints.length; i++) {
@@ -106,8 +105,6 @@ L.Routing.Ptv = L.Class.extend({
 		}
 
 		var geometryOnly = options && options.geometryOnly;
-
-		var numAlts = geometryOnly ? 0 : this.options.numberOfAlternatives;
 
 		if (typeof this.options.beforeSend === 'function') {
 			request = this.options.beforeSend(request);

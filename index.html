@@ -72,24 +72,52 @@
                     Drag and drop the blue waypoint markers, or grab the orange route line and drag a new via waypoint. You can also enter an
                     address in the address text fields on the right side.
                 </p>
-                <div id="scenario-control" class="controlPanel" style="width:204px">
+                <div id="scenario-control" class="controlPanel" style="width:304px">
                     <table>
                         <th colspan="2" style="height:30px;width:190px"><span style="font-size:16px; font-weight:bold">Sample Route</span>
                         </th>
                         <tr>
                             <td>
                                 <select id="scenarioSelect" class="form-control" onchange="updateScenario()" width="200px">
-                                    <option value="m">Munich</option>
-                                    <option value="hh">Hamburg</option>
                                     <option value="eu">Europe</option>
                                     <option value="na">USA</option>
                                     <option value="au">Australia</option>
+                                    <option value="imea">IMEA</option>
                                 </select>
                             </td>
                         </tr>
                     </table>
                 </div>
-            </div>
+                <div id="vehicle-control" class="controlPanel" style="width:304px">
+                    <table>
+                        <th colspan="2" style="height:30px;width:190px"><span style="font-size:16px; font-weight:bold">Profile</span>
+                        </th>
+                        <tr>
+                            <td>
+                                <select id="vehicleType" class="form-control" onchange="updateParams(false)" width="300px">
+                                    <option>EUR_TRAILER_TRUCK</option>
+                                    <option>EUR_TRUCK_40T</option>
+                                    <option>EUR_TRUCK_11_99T</option>
+                                    <option>EUR_TRUCK_7_49T</option>
+                                    <option>EUR_VAN</option>
+                                    <option selected="selected">EUR_CAR</option>
+                                    <option>USA_1_PICKUP</option>
+                                    <option>USA_5_DELIVERY</option>
+                                    <option>USA_8_SEMITRAILER_5AXLE</option>
+                                    <option>AUS_LCV_LIGHT_COMMERCIAL</option>
+                                    <option>AUS_MR_MEDIUM_RIGID</option>
+                                    <option>AUS_HR_HEAVY_RIGID</option>
+                                    <option>IMEA_TRUCK_40T</option>
+                                    <option>IMEA_TRUCK_7_49T</option>
+                                    <option>IMEA_VAN</option>
+                                    <option>IMEA_CAR</option>
+                                </select>
+                            </td>
+                        </tr>
+                    </table>
+                </div> 
+                <div><input type="checkbox" id="useImperial" onchange="updateParams(true)">Show imperial units</div>
+           </div>
         </div>
     </div>
     <div id="map" class="sidebar-map"></div>

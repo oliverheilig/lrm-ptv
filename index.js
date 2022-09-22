@@ -1,5 +1,7 @@
 var clusterName = 'xserver2-test';
-var scenario = 'm';
+var scenario = 'eu';
+var routingProfile = 'EUR_CAR';
+var useImperial = false;
 
 var baseLayers;
 var routingControl;
@@ -41,20 +43,6 @@ map.getPane('tileOverlayPane').style.pointerEvents = 'none';
 // get the start and end coordinates for a scenario
 var getPlan = function () {
 	switch (scenario) {
-	case 'm':
-	{
-		return [
-			L.latLng(48.10032397915225, 11.547317504882812),
-			L.latLng(48.167001359708934, 11.602249145507814)
-		];
-	}
-	case 'hh':
-	{
-		return [
-			L.latLng(53.55145062603612, 9.934816360473632),
-			L.latLng(53.52796226132062, 9.84975814819336)
-		];
-	}
 	case 'na':
 	{
 		return [
@@ -67,6 +55,13 @@ var getPlan = function () {
 		return [
 			L.latLng(-33.86959, 151.20694),
 			L.latLng(-35.3065, 149.12659)
+		];
+	}
+	case 'imea':
+	{
+		return [
+			L.latLng(30.056111, 31.239444),
+			L.latLng(25.266667, 55.3)
 		];
 	}
 	default:
@@ -104,6 +99,7 @@ var initializeRoutingControl = function () {
 			geocoder: L.Control.Geocoder.ptv({
 				serviceUrl: 'https://api.myptv.com',
 				apiKey: apiKey,
+				profile: routingProfile
 			}),
 			reverseWaypoints: true
 		}),
@@ -185,8 +181,15 @@ var updateScenario = function () {
 
 // update the routing params
 var updateParams = function (updateWayPoints) {
+	routingProfile = $('#vehicleType').val();
+	useImperial = $('#useImperial').is(':checked');
+
 	if (updateWayPoints)
-	{routingControl.setWaypoints(getPlan());}
-	routingControl._router.options.numberOfAlternatives = 0;
+	{ 
+		routingControl.setWaypoints(getPlan());
+	}
+	
+	routingControl._router.options.profile = routingProfile;
+	routingControl._formatter.options.units = useImperial ? 'imperial' : 'metric';
 	routingControl.route();
 };

@@ -10,7 +10,9 @@ L.Routing.Ptv = L.Class.extend({
 		apiKey: '',
 
 		// routing profile
-		profile: 'EUR_CAR'
+		profile: 'EUR_CAR',
+
+		trafficMode: 'REALISTIC',
 	},
 
 	initialize: function (options) {
@@ -88,7 +90,7 @@ L.Routing.Ptv = L.Class.extend({
 	},
 
 	_buildRouteRequest: function (waypoints, options) {
-		var request = 'routing/v1/routes?results=POLYLINE&profile=' + this.options.profile;
+		var request = 'routing/v1/routes?results=POLYLINE&profile=' + this.options.profile + "&options[trafficMode]=" + this.options.trafficMode;
 
 		var wpCoords = [];
 		for (i = 0; i < waypoints.length; i++) {

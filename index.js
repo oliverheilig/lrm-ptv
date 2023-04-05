@@ -2,6 +2,7 @@ var clusterName = 'xserver2-test';
 var scenario = 'EUR';
 var routingProfile = 'EUR_CAR';
 var useImperial = false;
+var realisticTraffic = false;
 
 var baseLayers;
 var routingControl;
@@ -35,11 +36,6 @@ var map = L.map('map', {
 		}
 	}]
 });
-
-// create a new pane for the overlay tiles
-map.createPane('tileOverlayPane');
-map.getPane('tileOverlayPane').style.zIndex = 500;
-map.getPane('tileOverlayPane').style.pointerEvents = 'none';
 
 // get the start and end coordinates for a scenario
 var getPlan = function () {
@@ -128,7 +124,8 @@ var initializeRoutingControl = function () {
 		router: L.Routing.ptv({
 			serviceUrl: 'https://api.myptv.com/',
 			apiKey: apiKey,
-			profile: routingProfile
+			profile: routingProfile,
+			trafficMode: realisticTraffic? 'REALISTIC' : 'AVERAGE'
 		}),
 		collapsible: true,
 		routeWhileDragging: false,
@@ -220,12 +217,14 @@ var updateScenario = function () {
 var updateParams = function (updateWayPoints) {
 	routingProfile = $('#vehicleType').val();
 	useImperial = $('#useImperial').is(':checked');
+	realisticTraffic = $('#realisticTraffic').is(':checked');
 
 	if (updateWayPoints) {
 		routingControl.setWaypoints(getPlan());
 	}
 
 	routingControl._router.options.profile = routingProfile;
+	routingControl._router.options.trafficMode = realisticTraffic? 'REALISTIC' : 'AVERAGE';
 	routingControl._formatter.options.units = useImperial ? 'imperial' : 'metric';
 	routingControl.route();
 };

@@ -73,13 +73,29 @@ var getPlan = function () {
 
 // returns a layer group for xmap back- and foreground layers
 var getXMapBaseLayers = function (style) {
-	var bg = L.tileLayer('https://api.myptv.com/rastermaps/v1/image-tiles/{z}/{x}/{y}?style={style}&apiKey={apiKey}', {
-		style: style,
-		apiKey: apiKey,
-		maxZoom: 23
-	});
+	if(style === 'satellite') {
+		var satlayer = L.tileLayer('https://api.myptv.com/rastermaps/v1/satellite-tiles/{z}/{x}/{y}?apiKey={apiKey}', {
+			apiKey: apiKey,
+			maxZoom: 22,
+			maxNativeZoom: 20
+		});
 
-	return L.layerGroup([bg]);
+		var roadlayer = L.tileLayer('https://api.myptv.com/rastermaps/v1/image-tiles/{z}/{x}/{y}?style=silkysand&layers=transport,labels&apiKey={apiKey}', {
+			style: style,
+			apiKey: apiKey,
+			maxZoom: 22
+		});
+		return L.layerGroup([satlayer, roadlayer]);
+	}
+	else {
+		var bg = L.tileLayer('https://api.myptv.com/rastermaps/v1/image-tiles/{z}/{x}/{y}?style={style}&apiKey={apiKey}', {
+			style: style,
+			apiKey: apiKey,
+			maxZoom: 22
+		});
+
+		return L.layerGroup([bg]);
+	}
 }
 
 var initializeRoutingControl = function () {
@@ -150,12 +166,13 @@ sidebar.open('home');
 L.control.scale().addTo(map);
 
 var baseLayers = {
+	'PTV satellite': getXMapBaseLayers('satellite'),
 	'PTV gravelpit': getXMapBaseLayers('gravelpit'),
 	'PTV sandbox': getXMapBaseLayers('sandbox'),
-	'PTV silkysand': getXMapBaseLayers('silkysand'),
+	'PTV silkysand': getXMapBaseLayers('silkysand').addTo(map),
 	'PTV classic': getXMapBaseLayers('classic'),
 	'PTV blackmarble': getXMapBaseLayers('blackmarble'),
-	'PTV silica': getXMapBaseLayers('silica').addTo(map)
+	'PTV silica': getXMapBaseLayers('silica')
 };
 
 L.control.layers(baseLayers, {}, {
